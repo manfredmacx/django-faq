@@ -2,17 +2,22 @@ from django.db import models
 from datetime import datetime
 from django.utils.translation import ugettext_lazy as _
 from django.contrib.auth.models import User
+from django.conf import settings
 from managers import QuestionManager
 import enums
+
 
 class Topic(models.Model):
     """
     Generic Topics for FAQ question grouping
     """
-
+    language = models.CharField(blank=False, max_length=5,
+                                choices=settings.LANGUAGES,
+                                verbose_name=_(u'Language'))
     name = models.CharField(max_length=150)
     slug = models.SlugField(max_length=150)
-    sort_order = models.IntegerField(_('sort order'), default=0, help_text='The order you would like the topic to be displayed.')
+    sort_order = models.IntegerField(_('sort order'), default=0,
+            help_text='The order you would like the topic to be displayed.')
 
     class Meta:
         ordering = ['sort_order', 'name']
@@ -20,19 +25,30 @@ class Topic(models.Model):
     def __unicode__(self):
         return self.name
 
+    def save(self, *args, **kwargs):
+        """
+        Update questions to topic language
+        """
+        super(Topic, self).save(*args, **kwargs)
+        Question.objects.filter(topic=self).update(language=self.language)
+
 
 class FaqBase(models.Model):
     '''
     Base class for models.
-    
+
     '''
-    created_by = models.ForeignKey(User, null=True, editable=False, related_name="%(class)s_created_by" )    
-    created_on = models.DateTimeField( _('created on'), default=datetime.now, editable=False,  )
-    updated_on = models.DateTimeField( _('updated on'), editable=False )
-    updated_by = models.ForeignKey(User, null=True, editable=False )  
-    
+
+    created_by = models.ForeignKey(User, null=True, editable=False,
+                                    related_name="%(class)s_created_by")
+    created_on = models.DateTimeField(_('created on'), default=datetime.now,
+                                    editable=False, )
+    updated_on = models.DateTimeField(_('updated on'), editable=False)
+    updated_by = models.ForeignKey(User, null=True, editable=False)
+
     class Meta:
         abstract = True
+
 
 class Question(FaqBase):
     """
@@ -40,16 +56,30 @@ class Question(FaqBase):
 
     """
 
-    slug = models.SlugField( max_length=100, help_text="This is a unique identifier that allows your questions to display its detail view, ex 'how-can-i-contribute'", )
+    language = models.CharField(blank=False, max_length=5,
+                                choices=settings.LANGUAGES,
+                                verbose_name=_(u'Language'))
+    slug = models.SlugField(max_length=100,
+        help_text="This is a unique identifier that allows your questions to" \
+                    " display its detail view, ex 'how-can-i-contribute'", )
     topic = models.ForeignKey(Topic)
-    text = models.TextField(_('question'), help_text='The actual question itself.')
-    answer = models.TextField( _('answer'), help_text='The answer text.' )    
-    status = models.IntegerField( choices=enums.QUESTION_STATUS_CHOICES, default=enums.STATUS_INACTIVE, help_text="Only questions with their status set to 'Active' will be displayed. Questions marked as 'Group Header' are treated as such by views and templates that are set up to use them." )
-    sort_order = models.IntegerField(_('sort order'), default=0, help_text='The order you would like the question to be displayed.')
-    protected = models.BooleanField( default="False", help_text="Set true if this question is only visible by authenticated users." )
-    
+    text = models.TextField(_('question'), help_text='The actual question" \
+                                            "itself.')
+    answer = models.TextField(_('answer'), help_text='The answer text.')
+    status = models.IntegerField(choices=enums.QUESTION_STATUS_CHOICES,
+        default=enums.STATUS_INACTIVE,
+        help_text="Only questions with their status set to 'Active' will be" \
+                    "displayed. Questions marked as 'Group Header' are" \
+                    " treated as such by views and templates that are set up" \
+                    " to use them.")
+    sort_order = models.IntegerField(_('sort order'), default=0,
+        help_text='The order you would like the question to be displayed.')
+    protected = models.BooleanField(default="False",
+        help_text="Set true if this question is only visible by" \
+                    " authenticated users.")
+
     objects = QuestionManager()
-    
+
     class Meta:
         ordering = ['sort_order', 'created_on', ]
 

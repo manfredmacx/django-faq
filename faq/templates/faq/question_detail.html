@@ -1,14 +1,10 @@
 {% extends "faq/base.html" %}
+{% load i18n %}
 
-{% block title %}{{ block.super }}: Question - {{ object.text|truncatewords:30}}{% endblock %}
-
+{% block title %}{{ block.super }}: {% trans "Question" %} - {{ object.text|truncatewords:30}}{% endblock %}
 
 {% block body %}
-
 {{ object.text }}
-
 <br/>
-
 {{ object.answer }}
-
 {% endblock %}
