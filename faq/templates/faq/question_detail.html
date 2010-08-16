@@ -3,7 +3,7 @@
 
 {% block title %}{{ block.super }}: {% trans "Question" %} - {{ object.text|truncatewords:30}}{% endblock %}
 
-{% block body %}
+{% block content %}
 {{ object.text }}
 <br/>
 {{ object.answer }}

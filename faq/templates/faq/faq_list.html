@@ -3,7 +3,7 @@
 
 {% block title %}{{ block.super }}: Example {% endblock %}
 
-{% block body %}
+{% block content %}
 <h1>{{ page_title }}</h1>
 <p>{% blocktrans with updated_on|date:"M d, Y" as updated_on %}Last updated on: {{ updated_on }}{% endblocktrans %}</p>
 

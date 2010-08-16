@@ -22,7 +22,7 @@ class QuestionQuerySet(QuerySet):
         if kwargs.get('slug'):
             slug = kwargs['slug']
             return self.filter(status__exact=enums.STATUS_ACTIVE,
-                                slug__exact=slug)
+                               slug__exact=slug)
         elif group:
             return self.exclude(status__exact=enums.STATUS_INACTIVE, )
         else:
