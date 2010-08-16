@@ -1,37 +1,70 @@
-
-Djangop-FAQ
+Django-FAQ
 =================
 
 This is a simple faq application for your Django powered site.
-This app follows several "best practices" for reusable apps by allowing for template overrides and extra_context arguments and such.
+This app follows several "best practices" for reusable apps by
+allowing for template overrides and extra_context arguments and such.
 
 Features
 ===================
 
-Question Headers can be created that can be used to group related questions into sections.
+- Question Headers can be created that can be used to group related
+  questions into sections ;
 
-Questions can be "protected" in which case they are only presented to authenticated users.
+- Questions can be "protected" in which case they are only presented
+  to authenticated users ;
 
-There are some saved FAQs in a fixture named initial_data.json that provide the example apps with some questions to view when you bring them up for the first time. These FAQs provide additional notes about installing and using django-faq.
+- Questions are linked to the current locale of the user, so you can
+  have multiple FAQs on your website ;
 
-There is a SubmitFAQForm defined that you can use to allow site visitors to submit new questions and/or answers to the site administrator for consideration. All submitted questions are added as "inactive" and so it is up to the administrator to edit, activate or discard the question as well as set its' sort_order field and slug to reasonable values.
+- There is a SubmitFAQForm defined that you can use to allow site
+visitors to submit new questions and/or answers to the site
+administrator for consideration. All submitted questions are added as
+"inactive" and so it is up to the administrator to edit, activate or
+discard the question as well as set its' sort_order field and slug to
+reasonable values.
 
-The example app now has a convenient home page that appears as the default page. It has links to the available views. The pinax_example app comes up in the manner of a normal Pinax site, but after you logon a working FAQ tab is available and sub-tabs also appear when you view the FAQ page.
 
 Installation
 ============
 
 1. add 'faq' directory to your Python path.
+2. Make sure you have the Localization middleware in your MIDDLEWARE_CLASSES
+
+MIDDLEWARE_CLASSES = (
+    ...
+    'django.middleware.locale.LocaleMiddleware',
+    ...
+)
+
 2. add 'faq' to your INSTALLED_APPS tuple found in your settings file.
-3. If you want to customize the templates then either create an 'faq'
+
+INSTALLED_APPS = (
+    ...
+    'faq',
+    ...
+)
+
+3. Run syncdb to create the tables
+
+4. If you want to customize the templates then either create a 'faq'
    directory in your projects templates location, or you can also pass along
    custom 'template_name' arguments by creating your own view wrappers around
    the 'faq' app views. I show how to do the latter in the 'example' project
    included - look at the views.py file to see the details.
-4. If you'd like to load some example data then execute ./manage.py loaddata example_data.json
+
+5. If you'd like to load some example data then execute ./manage.py loaddata example_data.json
 
 Example Site
 ============
+
+The example app now has a convenient home page that appears as the
+default page. It has links to the available views. The pinax_example
+app comes up in the manner of a normal Pinax site, but after you logon
+a working FAQ tab is available and sub-tabs also appear when you view
+the FAQ page.
+
+There are some saved FAQs in a fixture named initial_data.json that provide the example apps with some questions to view when you bring them up for the first time. These FAQs provide additional notes about installing and using django-faq.
 
 I included an example site in the /example directory. You should be able to
 simply execute './manage.py syncdb' and then './manage.py runserver' and have
