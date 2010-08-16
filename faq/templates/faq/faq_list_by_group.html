@@ -23,7 +23,7 @@
 		{% if question.is_active %}
 		<li>
 			<a id="{{ question.slug }}">
-			<h3>{{ question.text }}</h3>
+			<h3><a href="{{ question.get_absolute_url }}">{{ question.text }}</a></h3>
 			</a>
 			<p>{{ question.answer|safe }}</p>
 		</li>

@@ -4,7 +4,22 @@
 {% block title %}{{ block.super }}: {% trans "Question" %} - {{ object.text|truncatewords:30}}{% endblock %}
 
 {% block content %}
-{{ object.text }}
-<br/>
-{{ object.answer }}
+
+<h3>Faq &raquo; Question</h3>
+
+<p>
+Q: {{ object.text }}
+</p>
+
+<p>
+A: {{ object.answer }}
+</p>
+
+<h4>Related questions</h4>
+<ul>
+{% for question in object.related %}
+<li><a href="{{ question.get_absolute_url }}">{{ question.text|truncatewords:30 }}</a></li>
+{% endfor %}
+</ul>
+
 {% endblock %}

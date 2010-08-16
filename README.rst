@@ -17,6 +17,8 @@ Features
 - Questions are linked to the current locale of the user, so you can
   have multiple FAQs on your website ;
 
+- For every question, five Similar questions are calculated and cached ;
+
 - There is a SubmitFAQForm defined that you can use to allow site
 visitors to submit new questions and/or answers to the site
 administrator for consideration. All submitted questions are added as

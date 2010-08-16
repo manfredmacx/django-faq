@@ -125,3 +125,7 @@ class Question(models.Model):
         else:
             ret = [self.__class__.objects.get(id=faqid) for faqid in json.loads(self.related_cache)]
         return ret
+
+    @models.permalink
+    def get_absolute_url(self):
+        return ('faq:question-detail', (self.slug, ))
