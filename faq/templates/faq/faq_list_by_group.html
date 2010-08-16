@@ -8,26 +8,28 @@
 <p>{% blocktrans with updated_on|date:"M d, Y" as updated_on %}Last updated on: {{ updated_on }}{% endblocktrans %}</p>
 <h3>{% trans "Questions" %}</h3>
 <ol>
-	{% for question in object_list %}
-		{% if question.is_header %}
-		<h4>{{ question.text }}</h4><br/>
-		{% else %}
-		<li><a href="#{{ question.slug }}" title="{{ question.text }}">{{ question.text }}</a></li>
-		{% endif %}
-	{% endfor %}
+  {% for question in object_list %}
+  {% ifchanged question.topic %}<h4>{{ question.topic|capfirst }}</h4>{% endifchanged %}
+  {% if question.is_header %}
+  <h4>{{ question.text|capfirst }}</h4>
+  {% else %}
+  <li><a href="#{{ question.slug }}" title="{{ question.text }}">{{ question.text }}</a></li>
+  {% endif %}
+  {% endfor %}
 </ol>
 <hr/>
 <h3 style="margin-top: 50px">{% trans "Answers" %}</h3>
 <ol style="margin-bottom: 800px">
-	{% for question in object_list %}
-		{% if question.is_active %}
-		<li>
-			<a id="{{ question.slug }}">
-			<h3><a href="{{ question.get_absolute_url }}">{{ question.text }}</a></h3>
-			</a>
-			<p>{{ question.answer|safe }}</p>
-		</li>
-		{% endif %}
-	{% endfor %}
+  {% for question in object_list %}
+  {% ifchanged question.topic %}<h4>{{ question.topic|capfirst }}</h4>{% endifchanged %}
+  {% if question.is_active %}
+  <li>
+    <a id="{{ question.slug }}">
+      <h3><a href="{{ question.get_absolute_url }}">{{ question.text|capfirst }}</a></h3>
+    </a>
+    <p>{{ question.answer|safe|capfirst }}</p>
+  </li>
+  {% endif %}
+  {% endfor %}
 </ol>
 {% endblock %}
