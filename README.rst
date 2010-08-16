@@ -17,7 +17,7 @@ Features
 - Questions are linked to the current locale of the user, so you can
   have multiple FAQs on your website ;
 
-- For every question, five Similar questions are calculated and cached ;
+- For every question, five similar questions are calculated and cached (this feature still has to be reviewed) ;
 
 - There is a SubmitFAQForm defined that you can use to allow site
 visitors to submit new questions and/or answers to the site
@@ -33,19 +33,19 @@ Installation
 1. add 'faq' directory to your Python path.
 2. Make sure you have the Localization middleware in your MIDDLEWARE_CLASSES
 
-MIDDLEWARE_CLASSES = (
-    ...
-    'django.middleware.locale.LocaleMiddleware',
-    ...
-)
+	MIDDLEWARE_CLASSES = (
+	    ...
+	    'django.middleware.locale.LocaleMiddleware',
+	    ...
+	)
 
 2. add 'faq' to your INSTALLED_APPS tuple found in your settings file.
 
-INSTALLED_APPS = (
-    ...
-    'faq',
-    ...
-)
+	INSTALLED_APPS = (
+	    ...
+	    'faq',
+	    ...
+	)
 
 3. Run syncdb to create the tables
 
