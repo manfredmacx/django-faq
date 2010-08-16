@@ -9,13 +9,21 @@
 
 <h3>{% trans "Questions" %}</h3>
 <ol>
-	{% for question in object_list %}
-	<li>
-		{{ question.text }}
-		<br>
-		<span class="answer">{% trans "answer" %}: {{ question.answer }}</span>
-	</li>
-	{% endfor %}
+  <li>
+    {{ question.text }}
+    <br>
+    <span class="answer">{% trans "answer" %}: {{ question.answer }}</span>
+    {% if question.related %}
+    <br>
+    <small>
+      {% for rquestion in question.related %}
+      {% if forloop.first %}
+      See also <a href="#rquestion.slug">{{ rquestion.text }}</a>
+      {% endif %}
+      {% endfor %}
+    </small>
+    {% endif %}
+  </li>
 </ol>
 
 {% endblock %}

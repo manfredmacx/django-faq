@@ -9,6 +9,7 @@ but actually it is, only it is added as inactive.
 import datetime
 from django import forms
 from django.utils.translation import ugettext_lazy as _
+
 from faq.models import Question, Topic
 from faq.enums import STATUS_INACTIVE
 
@@ -41,9 +42,9 @@ class SubmitFaqForm(forms.Form):
                                                 dt.second)
         topic = self.cleaned_data['topic']
         question = self.cleaned_data['question']
-        answer = self.cleaned_data['answer']
-        new_question = Question(text=question, answer=answer, topic=topic,
-                                slug=slug_str, sort_order = 999,
-                                protected = False,
-                                status = STATUS_INACTIVE)
+        new_question = Question( text=question, answer=answer,
+                                 slug=slug_str, sort_order = 999,
+                                 protected = False, status = STATUS_INACTIVE,
+                                 topic=topic )
+
         return new_question
