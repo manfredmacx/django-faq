@@ -5,6 +5,11 @@ This is a simple faq application for your Django powered site.
 This app follows several "best practices" for reusable apps by
 allowing for template overrides and extra_context arguments and such.
 
+Forked by Manfred Macx LLC
+===================
+
+There were a few little nits in here that made it difficult to use in our app, so we forked.
+
 Features
 ===================
 
