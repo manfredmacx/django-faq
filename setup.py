@@ -54,24 +54,23 @@ else:
     version = "%d.%d" % version_tuple[:2]"""
 
 setup(
-    name='django-faq',
-    version='0.1.1',
-    description='This is a simple FAQ application.',
-    author='Kevin Fricovsky',
-    author_email='kfricovsky@gmail.com',
-    url='http://github.com/howiworkdaily/django-faq/tree/master',
-    packages=packages
-    classifiers=[
-        'Development Status :: 3 - Alpha',
-        'Environment :: Web Environment',
-        'Intended Audience :: Developers',
-        'License :: OSI Approved :: BSD License',
-        'Operating System :: OS Independent',
-        'Programming Language :: Python',
-        'Framework :: Django',
-    ],
-    include_package_data=True,
-    zip_safe=False,
-    install_requires=['setuptools', 'simplejson'],
-    # also helpful: 'editdist' from http://www.mindrot.org/projects/py-editdist/
+	name='django-faq',
+	version='0.1.1',
+	description='This is a simple FAQ application.',
+	author='Kevin Fricovsky',
+	author_email='kfricovsky@gmail.com',
+	url='http://github.com/howiworkdaily/django-faq/tree/master',
+	packages=packages
+	classifiers= ['Development Status :: 3 - Alpha',
+					'Environment :: Web Environment',
+					'Framework :: Django',
+					'Intended Audience :: Developers',
+					'License :: OSI Approved :: BSD License',
+					'Operating System :: OS Independent',
+					'Programming Language :: Python',
+					'Topic :: Application'],
+	include_package_data=True,
+	zip_safe=False,
+	install_requires=['setuptools', 'simplejson'],
+	# also helpful: 'editdist' from http://www.mindrot.org/projects/py-editdist/
 )
