@@ -60,7 +60,7 @@ setup(
     author='Kevin Fricovsky',
     author_email='kfricovsky@gmail.com',
     url='http://github.com/howiworkdaily/django-faq/tree/master',
-    packages=find_packages(),
+    packages=packages
     classifiers=[
         'Development Status :: 3 - Alpha',
         'Environment :: Web Environment',
