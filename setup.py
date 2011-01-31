@@ -46,11 +46,12 @@ for dirpath, dirnames, filenames in os.walk(faq_dir):
         data_files.append([dirpath, [os.path.join(dirpath, f) for f in filenames]])
 
 # Dynamically calculate the version based on faq.VERSION
-version_tuple = __import__('faq').VERSION
+# this would be cool if I can figure out how to get it to work.
+"""version_tuple = __import__('faq').VERSION
 if version_tuple[2] is not None:
     version = "%d.%d_%s" % version_tuple
 else:
-    version = "%d.%d" % version_tuple[:2]
+    version = "%d.%d" % version_tuple[:2]"""
 
 setup(
     name='django-faq',
