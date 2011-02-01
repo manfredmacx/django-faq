@@ -11,10 +11,10 @@ class TopicAdmin(admin.ModelAdmin):
 
 
 class QuestionAdmin(admin.ModelAdmin):
-    list_display = ('text', 'language', 'topic', 'sort_order', 'created_by',
+    list_display = ('question', 'language', 'topic', 'sort_order', 'created_by',
                     'created_on', 'updated_by', 'updated_on', 'status', )
-    list_filter = ('language', )
-    search_fields = ['text', ]
+    list_filter = ('language', 'status',)
+    search_fields = ['question', ]
 
     def save_model(self, request, obj, form, change):
         '''

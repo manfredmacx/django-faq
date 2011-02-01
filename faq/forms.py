@@ -12,22 +12,13 @@ from django.utils.translation import ugettext_lazy as _
 from faq.models import Question
 
 class SubmitFaqForm(forms.ModelForm):
-    class Meta:
-        model = Question
-        fields = ('topic', 'text', 'answer')
+	class Meta:
+		model = Question
+		fields = ('topic', 'question',)
+	
+	def __init__(self, language, *args, **kwargs):
+		super(SubmitFaqForm, self).__init__(*args, **kwargs)
+		self.fields['topic'].queryset = self.fields['topic'].queryset \
+										.filter(language=language)
 
-    answer = forms.CharField(required=False, widget=forms.Textarea,
-                             label=_(u'Answer'))
-
-    def __init__(self, language, *args, **kwargs):
-        super(SubmitFaqForm, self).__init__(*args, **kwargs)
-        self.fields['topic'].queryset = self.fields['topic'].queryset \
-                                        .filter(language=language)
-
-    def clean_answer(self):
-        answer = self.cleaned_data['answer']
-        if not answer or len(answer) < 1:
-            self.cleaned_data['answer'] = _(u"No answer for this FAQ is" \
-                                                " available at this time.")
-        return self.cleaned_data['answer']
 

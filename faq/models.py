@@ -72,7 +72,7 @@ class Question(models.Model):
 											" display its detail view, ex 'how-can-i-contribute'"), )
 	topic = models.ForeignKey(Topic)
 	
-	text = models.TextField(_('question'), 
+	question = models.TextField(_('question'), 
 							help_text=_("The actual question itself."))
 	answer = models.TextField(_('answer'), 
 							  help_text=_("The answer text."))
