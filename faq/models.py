@@ -95,7 +95,7 @@ class Question(models.Model):
 	related_cache = models.TextField(blank=True, default='', editable=False)
 	
 	def __unicode__(self):
-		return self.text
+		return self.question
 	
 	def save(self, *args, **kwargs):
 		if not self.pk:
