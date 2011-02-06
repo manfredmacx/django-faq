@@ -11,9 +11,9 @@ class TopicAdmin(admin.ModelAdmin):
 
 
 class QuestionAdmin(admin.ModelAdmin):
-    list_display = ('question', 'language', 'topic', 'sort_order', 'created_by',
+    list_display = ('question',  'topic', 'sort_order', 'created_by',
                     'created_on', 'updated_by', 'updated_on', 'status', )
-    list_filter = ('language', 'status',)
+    list_filter = ('language', 'status', 'topic',)
     search_fields = ['question', ]
 
     def save_model(self, request, obj, form, change):
