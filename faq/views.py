@@ -39,8 +39,15 @@ def question_list(request, template_name='faq/question_list.html',
 	query_set = Question.objects.active(group=group, 
 										user=request.user).filter(language=request.LANGUAGE_CODE)
 	
-	last_update = query_set.values('updated_on').order_by('-updated_on', )[0]
-	extra = {'updated_on': last_update['updated_on']}
+	"""
+	Google crawler was throwing an error here so I wrapped it in a try - jrenaut
+	"""
+	try:
+		last_update = query_set.values('updated_on').order_by('-updated_on', )[0]
+		extra = {'updated_on': last_update['updated_on']}
+	except:
+		last_update = None
+		extra = {}	
 	extra.update(extra_context)
 	
 	return object_list(request,
